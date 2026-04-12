@@ -213,7 +213,22 @@
     const taskCount = document.getElementById("task-count");
     const emptyState = document.getElementById("empty-state");
 
-    const tasks = [];
+    let tasks = [];
+
+    function saveTasks() {
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+
+    function loadTasks() {
+      const saved = localStorage.getItem("tasks");
+      if (saved) {
+        try {
+          tasks = JSON.parse(saved);
+        } catch (e) {
+          tasks = [];
+        }
+      }
+    }
 
     function updateTaskCount() {
       const total = tasks.length;
@@ -234,6 +249,7 @@
         checkbox.checked = task.done;
         checkbox.addEventListener("change", () => {
           task.done = checkbox.checked;
+          saveTasks();
           renderTasks();
         });
 
@@ -247,6 +263,7 @@
         removeButton.textContent = "Remove";
         removeButton.addEventListener("click", () => {
           tasks.splice(index, 1);
+          saveTasks();
           renderTasks();
         });
 
@@ -268,12 +285,14 @@
       }
 
       tasks.push({ text, done: false });
+      saveTasks();
       taskInput.value = "";
       renderTasks();
       taskInput.focus();
     });
 
-    updateTaskCount();
+    loadTasks();
+    renderTasks();
   </script>
 </body>
 </html>
