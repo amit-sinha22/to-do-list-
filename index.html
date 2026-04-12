@@ -214,7 +214,15 @@
     const taskCount = document.getElementById("task-count");
     const emptyState = document.getElementById("empty-state");
 
-    const tasks = [];
+    let tasks = [];
+    try {
+      const savedTasks = localStorage.getItem("tasks");
+      if (savedTasks) {
+        tasks = JSON.parse(savedTasks);
+      }
+    } catch (e) {
+      console.error("Error loading tasks from localStorage", e);
+    }
 
     function updateTaskCount() {
       const total = tasks.length;
@@ -223,6 +231,12 @@
     }
 
     function renderTasks() {
+      try {
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+      } catch (e) {
+        console.error("Error saving tasks to localStorage", e);
+      }
+
       taskList.innerHTML = "";
 
       tasks.forEach((task, index) => {
@@ -274,7 +288,7 @@
       taskInput.focus();
     });
 
-    updateTaskCount();
+    renderTasks();
   </script>
 </body>
 </html>

@@ -10,7 +10,8 @@ This is a beginner-friendly to-do app project with:
 - View tasks
 - Add tasks
 - Remove tasks
-- Mark tasks as complete in the browser version
+- Mark tasks as complete
+- Tasks are automatically saved to `tasks.json` in the Python version and `localStorage` in the browser version.
 
 ## How to Run
 
@@ -31,6 +32,5 @@ Open [index.html](/Users/amitkumar/Documents/New%20project/index.html) in any we
 
 ## Notes
 
-- Tasks are not saved after you close either version of the app.
-- The Python version is meant for learning lists, functions, loops, and input.
-- The browser version is meant for learning basic HTML, CSS, and JavaScript.
+- The Python version uses `tasks.json` for persistent storage and is meant for learning data structures, functions, loops, and I/O.
+- The browser version uses `localStorage` for persistent storage and is meant for learning basic HTML, CSS, and JavaScript.
